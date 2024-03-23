@@ -8,9 +8,10 @@ export async function listContacts() {
   try {
     const readResult = await fs.readFile(contactsPath);
     const parsedRes = JSON.parse(readResult);
+
     return parsedRes;
   } catch (error) {
-    console.log(error);
+    console.log(error.message);
     return null;
   }
 }
@@ -30,8 +31,9 @@ export async function removeContact(contactId) {
   try {
     const contactsArr = await listContacts();
     const contacts = contactsArr.filter((contact) => contact.id !== contactId);
+    const deletedContact = await getContactById(contactId);
     await fs.writeFile(contactsPath, JSON.stringify(contacts));
-    deletedContact = await getContactById(contactId);
+
     return deletedContact;
   } catch (error) {
     console.log(error);
@@ -45,6 +47,7 @@ export async function addContact(name, email, phone) {
     const newUserObj = { id, name, email, phone };
     userObj.push(newUserObj);
     await fs.writeFile(contactsPath, JSON.stringify(userObj));
+
     return newUserObj;
   } catch (error) {
     console.log(error);
