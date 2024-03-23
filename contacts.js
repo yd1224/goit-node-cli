@@ -4,7 +4,7 @@ import { nanoid } from "nanoid";
 
 const contactsPath = path.join("db", "contacts.json");
 
-async function listContacts() {
+export async function listContacts() {
   try {
     const readResult = await fs.readFile(contactsPath);
     const parsedRes = JSON.parse(readResult);
@@ -15,7 +15,7 @@ async function listContacts() {
   }
 }
 
-async function getContactById(contactId) {
+export async function getContactById(contactId) {
   try {
     const contactsArr = await listContacts();
     const contact = contactsArr.find((contact) => contact.id === contactId);
@@ -26,7 +26,7 @@ async function getContactById(contactId) {
   }
 }
 
-async function removeContact(contactId) {
+export async function removeContact(contactId) {
   try {
     const contactsArr = await listContacts();
     const contacts = contactsArr.filter((contact) => contact.id !== contactId);
@@ -37,8 +37,8 @@ async function removeContact(contactId) {
     console.log(error);
   }
 }
-removeContact("_AlTZnp15DDLYm22kqN5i");
-async function addContact(name, email, phone) {
+
+export async function addContact(name, email, phone) {
   try {
     const id = nanoid();
     const userObj = await listContacts();

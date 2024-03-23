@@ -1,4 +1,15 @@
 import { program } from "commander";
+import readline from "readline";
+import {
+  listContacts,
+  getContactById,
+  removeContact,
+  addContact,
+} from "./contacts";
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout,
+});
 program
   .option("-a, --action <type>", "choose action")
   .option("-i, --id <type>", "user id")
